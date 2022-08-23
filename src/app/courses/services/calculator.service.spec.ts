@@ -4,11 +4,20 @@ import { LoggerService } from "./logger.service";
 describe ('CalculatorService', () => { // 1 suite has many specs
   
   it('should add two numbers', () => {
-    const calculator = new CalculatorService(new LoggerService());
+    
+    const logger = jasmine.createSpyObj('LoggerService', ["log"]);
+
+    // spyOn(logger, 'log'); alternate
+
+    // logger.log.and.returnValue();
+
+    const calculator = new CalculatorService(logger);
 
     const result = calculator.add(2, 2);
 
     expect(result).toBe(4);
+
+    expect(logger.log).toHaveBeenCalledTimes(1);
 
   })
 
