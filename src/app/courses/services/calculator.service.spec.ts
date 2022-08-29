@@ -2,6 +2,9 @@ import { TestBed } from "@angular/core/testing";
 import { CalculatorService } from "./calculator.service";
 import { LoggerService } from "./logger.service";
 
+// you can use fdescribe or fit to only run a specific suite or test.
+// you can use xdescribe or xit to bypass specific suite or test.
+
 describe ('CalculatorService', () => { // 1 suite has many specs
 
   let calculator: CalculatorService,
