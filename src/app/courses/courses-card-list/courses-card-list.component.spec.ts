@@ -39,6 +39,13 @@ describe('CoursesCardListComponent', () => {
   it("should display the course list", () => {
 
     component.courses = setupCourses();
+
+    fixture.detectChanges(); // before we can see courses in the DOM. We need to call this to update.
+
+    // console.log(el.nativeElement.outerHTML);
+    
+    
+
     const cards = el.queryAll(By.css(".course-card"));
     expect(cards).toBeTruthy("Could not find cards");
     expect(cards.length).toBe(12, "Unexpected number of courses");
