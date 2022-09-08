@@ -98,7 +98,7 @@ describe('HomeComponent', () => {
   });
 
 
-  it("should display advanced courses when tab clicked", () => {
+  it("should display advanced courses when tab clicked", (done: DoneFn) => {
 
     coursesService.findAllCourses.and.returnValue(of(setupCourses()));
 
@@ -107,14 +107,26 @@ describe('HomeComponent', () => {
     const tabs = el.queryAll(By.css(".mat-tab-label"));
 
     // el.nativeElement.click();
+    console.log('tabs', tabs);
+    
 
-    click(tabs[1]);
+    click(tabs[1]); // this is async call - bottom will run before this finishes
 
-    const cardTitles = el.queryAll(By.css(".mat-card-title"));
+    fixture.detectChanges();
 
-    expect(cardTitles.length).toBeGreaterThan(0, "Could not find card titles");
+    setTimeout(() => {
+      const cardTitles = el.queryAll(By.css(".mat-tab-body-active .mat-card-title"));
 
-    expect(cardTitles[0].nativeElement.textContent).toContain("Angular Security Course");
+      console.log(cardTitles)
+  
+      expect(cardTitles.length).toBeGreaterThan(0, "Could not find card titles");
+  
+      expect(cardTitles[0].nativeElement.textContent).toContain("Angular Security Course");
+
+      done();
+
+    }, 500);
+
 
   });
 
